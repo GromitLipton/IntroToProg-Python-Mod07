@@ -4,19 +4,20 @@
 Learning objective of module 07 is to learn about Exception handling and Pickling module in Python and to get familiar with advanced publishing in GitHub. We were encouraged to seek our own external sources of information related to Pickling and Exception handling. 
 ## Pickling
 Sometimes it is important to reduce file’s size or to obscure its contents. In these cases, output could be saved in a binary format. Pickling is a Python serialization method for converting objects and their hierarchy using binary protocols. Python pickle module is used to store data in binary files and ‘unpickling’ (reading) data back from these files. According to documentation on python.org [External file], pickling method is not secure and should only be used for trusted data. Pickled data can be malicious and may execute harmful code during unpickling. Additionally, pickling data makes it obscure (hard to read for a human eye) but not secure, since it is not encrypted. To use pickle module in Python script, type: 
+
  import pickle 
+ 
 ## What type of data can be pickled?
 Boolean, integer, floating point numbers, strings, tuples, lists, dictionaries and even functions and classes!
-Access mode for binary files
+## Access mode for binary files
 rb Opens a file for reading only in binary format. The file pointer is placed at the beginning of the file. This is the default mode.
 wb Opens a file for writing only in binary format. Overwrites the file if the file exists. If the file does not exist, creates a new file for writing.
 ab Opens a file for appending in binary format. The file pointer is at the end of the file if the file exists. That is, the file is in the append mode. If the file does not exist, it creates a new file for writing. 
 Source: https://www.tutorialspoint.com/python/python_files_io.htm [External file]
+
 Example:
 objFile=open("AppData.dat","rb")
 This opens file AppData.dat for reading in binary format.
-
-
 
 
 ## Pickling functions dump and load
