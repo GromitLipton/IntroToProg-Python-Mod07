@@ -5,10 +5,11 @@ Learning objective of module 07 is to learn about Exception handling and Picklin
 ## Pickling
 Sometimes it is important to reduce file’s size or to obscure its contents. In these cases, output could be saved in a binary format. Pickling is a Python serialization method for converting objects and their hierarchy using binary protocols. Python pickle module is used to store data in binary files and ‘unpickling’ (reading) data back from these files. According to documentation on python.org [External file], pickling method is not secure and should only be used for trusted data. Pickled data can be malicious and may execute harmful code during unpickling. Additionally, pickling data makes it obscure (hard to read for a human eye) but not secure, since it is not encrypted. To use pickle module in Python script, type: 
 
- import pickle 
+ ```import pickle ```
  
 ## What type of data can be pickled?
 Boolean, integer, floating point numbers, strings, tuples, lists, dictionaries and even functions and classes!
+
 ## Access mode for binary files
 rb Opens a file for reading only in binary format. The file pointer is placed at the beginning of the file. This is the default mode.
 wb Opens a file for writing only in binary format. Overwrites the file if the file exists. If the file does not exist, creates a new file for writing.
@@ -16,32 +17,31 @@ ab Opens a file for appending in binary format. The file pointer is at the end o
 Source: https://www.tutorialspoint.com/python/python_files_io.htm [External file]
 
 Example:
-objFile=open("AppData.dat","rb")
+```objFile=open("AppData.dat","rb")```
 This opens file AppData.dat for reading in binary format.
 
 
 ## Pickling functions dump and load
 To write pickled data to a binary file use dump function:
-pickle.dump(obj, file)
-
+```.dump(obj, file)```
 This writes pickled data (obj parameter) to opened file (file parameter). 
 
 To read pickled data from a binary file, use load function:
 
-pickle.load(file)
+```pickle.load(file)```
 
 ## Protocols
 Converting (pickling) data is executed according to one of the available protocols. Currently there are 5 protocols (versions). Protocol is an optional parameter for dump and load functions. If not specified, default protocol for Python interpreter will be used. Usually default = the highest protocol, but not always.
+
 ## Error Handling
 Python handles most programming errors automatically via built-in class called ‘Exception’. It is used to hold information about several types of common errors. These errors could be captured and extracted by assigning them to a variable. To do that, try-except method is used, as shown in Figure 1.
 
-try:
+```try:
     quotient = 5/0
     print(quotient)
 except Exception as e:
     print("Error!”)   #any custom message could go in here
-    print (e)
-
+    print (e)```
  Figure 1. Example of try-except method
 
 Specific error types
@@ -53,21 +53,20 @@ ZeroDivisionError
 
 Figure 2 shows example of using specific error type ZeroDivisionError:
 
-try:
+```try:
     quotient = 5/0
     print(quotient)
 except ZeroDivisionError as e:
     print("Error! You can’t divide by 0!”)   #any custom message could go in here
 except Exception as e:                      #any other errors will still be captured by general Exception
     print("Error!”)   
-    print (e)
-
+    print (e)```
  Figure 2. Example of try-except method with specific error type
 
 ## Raising Custom Exception
 In addition to specific error types custom errors can be defined (raised). For example, if you want to user input to be only positive numbers, you can use the custom exception as shown in Figure 3:
 
-while True:
+```while True:
     try:
 intNumber = int(input("People vaccinated: "))
 if intNumber < 0:  # raising custom exception
@@ -76,8 +75,7 @@ else:
     return lstData
     except Exception as e:  # this exception catches all the rest
     print("There was a non-specific error!")
-    print(e)
-
+    print(e)```
 Figure 3. Raising custom expression
 
 # Assignment 07
@@ -86,39 +84,35 @@ Program description: My program will collect vaccination statistics for various 
 
 ## Step 1
 I added heading for my script:
-# ------------------------------------------------- #
+```# ------------------------------------------------- #
 # Title: Pickling and Exception Handling in Python
 # Description: Storing and reading vaccination data for different cities
 # ChangeLog: (Who, When, What)
-# ElenaMcDonald,05.24.2021,Created script
-
+# ElenaMcDonald,05.24.2021,Created script```
 ## Step 2
 I imported pickle module:
-import pickle  # imports code for pickling functions
-
+```import pickle  # imports code for pickling functions```
 ## Step 3
 I added ‘structure’ placeholders: -----data--------, -----------processing-----------, -----------presentation--------
 These will hold my future functions
 ## Step 4
 I named my variables at the top:
-strFileName = "AppData.dat"
-lstData = []
-
+```strFileName = "AppData.dat"
+lstData = []```
 ## Step 5
 I wrote functions for pickling and unpickling data:
 
-def save_data_to_file(file_name, list):
+```def save_data_to_file(file_name, list):
     """Using Pickling for storing data in a binary file
     :param file_name: target binary file
     :param list: list of values to be added
     """
     file = open(file_name, "ab")  # append new data to a file
     pickle.dump(list, file)
-    file.close()
-
+    file.close()```
 Figure 4. Pickling
 
-def read_data_file(file_name):
+```def read_data_file(file_name):
     """Reads all data from binary file and appends it to list of objects
     :param file_name: binary source file (previously pickled)
     :return: list of pickled objects
@@ -132,14 +126,13 @@ def read_data_file(file_name):
         except EOFError:  # "end of file" built-in exception used to break the loop
             break
     file.close()
-    return list
-
+    return list```
 Figure 5. Unpickling
 
 ## Step 6
 I wrote function for collecting user input. This includes 3 examples of exception handling: generic error, specific error type (ValueError) and custom error for entering negative number, as shown in Figure 6:
 
-def input_new_data():
+```def input_new_data():
     """Collects user input data for cities and number of people vaccinated
        and stores both variables in a list
     :return: list consisting of 2 values: city and number of people vaccinated
@@ -158,14 +151,13 @@ def input_new_data():
             print("Please enter only numeric values for people vaccinated! ")
         except Exception as e:  # this exception catches all the rest
             print("There was a non-specific error!")
-            print(e, e.__doc__, type(e), sep='\n')
-
+            print(e, e.__doc__, type(e), sep='\n')```
 Figure 5. Examples of using exceptions
 
 ## Step 7
 At the end I wrote my main() function:
 
-def main():
+```def main():
  while True:
     lstData = input_new_data()
     save_data_to_file(strFileName, lstData)
@@ -175,8 +167,7 @@ def main():
     strChoice = input("Add another? Y/N: ")
     if strChoice.lower().strip() == "y":
         continue
-    break
-
+    break```
 ![image](https://user-images.githubusercontent.com/84052822/119774119-8ca56500-be76-11eb-91af-69e53247dbfb.png)
 
 
