@@ -33,7 +33,8 @@ Converting (pickling) data is executed according to one of the available protoco
 
 ## Error Handling
 Python handles most programming errors automatically via built-in class called ‘Exception’. It is used to hold information about several types of common errors. These errors could be captured and extracted by assigning them to a variable. To do that, try-except method is used, as shown in Figure 1.
-```try:
+```
+try:
     quotient = 5/0
     print(quotient)
 except Exception as e:
@@ -64,13 +65,14 @@ Figure 2. Example of try-except method with specific error type
 
 ## Raising Custom Exception
 In addition to specific error types custom errors can be defined (raised). For example, if you want to user input to be only positive numbers, you can use the custom exception as shown in Figure 3:
-```while True:
+```
+while True:
     try:
-intNumber = int(input("People vaccinated: "))
-if intNumber < 0:  # raising custom exception
-    raise Exception("Number must be >= 0")
-else:
-    return lstData
+        intNumber = int(input("People vaccinated: "))
+        if intNumber < 0:  # raising custom exception
+            raise Exception("Number must be >= 0")
+        else:
+            return lstData
     except Exception as e:  # this exception catches all the rest
     print("There was a non-specific error!")
     print(e)
@@ -83,7 +85,8 @@ Program description: My program will collect vaccination statistics for various 
 
 ## Step 1
 I added heading for my script:
-```# ------------------------------------------------- #
+```
+# ------------------------------------------------- #
 # Title: Pickling and Exception Handling in Python
 # Description: Storing and reading vaccination data for different cities
 # ChangeLog: (Who, When, What)
@@ -97,13 +100,15 @@ I added ‘structure’ placeholders: -----data--------, -----------processing--
 These will hold my future functions
 ## Step 4
 I named my variables at the top:
-```strFileName = "AppData.dat"
+```
+strFileName = "AppData.dat"
 lstData = []
 ```
 ## Step 5
 I wrote functions for pickling and unpickling data:
 
-```def save_data_to_file(file_name, list):
+```
+def save_data_to_file(file_name, list):
     """Using Pickling for storing data in a binary file
     :param file_name: target binary file
     :param list: list of values to be added
@@ -111,10 +116,11 @@ I wrote functions for pickling and unpickling data:
     file = open(file_name, "ab")  # append new data to a file
     pickle.dump(list, file)
     file.close()
-  ```
+```
 Figure 4. Pickling
 
-```def read_data_file(file_name):
+```
+def read_data_file(file_name):
     """Reads all data from binary file and appends it to list of objects
     :param file_name: binary source file (previously pickled)
     :return: list of pickled objects
@@ -129,13 +135,14 @@ Figure 4. Pickling
             break
     file.close()
     return list
-  ```
+ ```
 Figure 5. Unpickling
 
 ## Step 6
 I wrote function for collecting user input. This includes 3 examples of exception handling: generic error, specific error type (ValueError) and custom error for entering negative number, as shown in Figure 6:
 
-```def input_new_data():
+```
+def input_new_data():
     """Collects user input data for cities and number of people vaccinated
        and stores both variables in a list
     :return: list consisting of 2 values: city and number of people vaccinated
@@ -161,7 +168,8 @@ Figure 5. Examples of using exceptions
 ## Step 7
 At the end I wrote my main() function:
 
-```def main():
+```
+def main():
  while True:
     lstData = input_new_data()
     save_data_to_file(strFileName, lstData)
@@ -172,8 +180,7 @@ At the end I wrote my main() function:
     if strChoice.lower().strip() == "y":
         continue
     break
-  ```
+```
 ## Summary
 Pickling and unpickling is an easy way to store data using built-in Python functions. Though not always secure, it could be implementing for different use cases, like storing models for machine learning, etc. 
 Exception handling is extremely flexible in Python and could be used for a variety of use cases, even as a logic for the loops. 
-![image](https://user-images.githubusercontent.com/84052822/119773245-3126a780-be75-11eb-93a1-0e8d0bbd993d.png)
