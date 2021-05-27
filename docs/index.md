@@ -23,26 +23,24 @@ This opens file AppData.dat for reading in binary format.
 
 ## Pickling functions dump and load
 To write pickled data to a binary file use dump function:
-```.dump(obj, file)```
+```pickle.dump(obj, file)```
 This writes pickled data (obj parameter) to opened file (file parameter). 
 
-To read pickled data from a binary file, use load function:
-
-```pickle.load(file)```
+To read pickled data from a binary file, use load function:```pickle.load(file)```
 
 ## Protocols
 Converting (pickling) data is executed according to one of the available protocols. Currently there are 5 protocols (versions). Protocol is an optional parameter for dump and load functions. If not specified, default protocol for Python interpreter will be used. Usually default = the highest protocol, but not always.
 
 ## Error Handling
 Python handles most programming errors automatically via built-in class called ‘Exception’. It is used to hold information about several types of common errors. These errors could be captured and extracted by assigning them to a variable. To do that, try-except method is used, as shown in Figure 1.
-
 ```try:
     quotient = 5/0
     print(quotient)
 except Exception as e:
     print("Error!”)   #any custom message could go in here
-    print (e)```
- Figure 1. Example of try-except method
+    print (e)
+```  
+Figure 1. Example of try-except method
 
 Specific error types
 Exception is a class that captures all types of error, but sometimes we need to be more specific. There are error types that can help with that. Here are some examples:
@@ -52,20 +50,20 @@ ZeroDivisionError
 
 
 Figure 2 shows example of using specific error type ZeroDivisionError:
-
-```try:
+```
+try:
     quotient = 5/0
     print(quotient)
 except ZeroDivisionError as e:
     print("Error! You can’t divide by 0!”)   #any custom message could go in here
 except Exception as e:                      #any other errors will still be captured by general Exception
     print("Error!”)   
-    print (e)```
- Figure 2. Example of try-except method with specific error type
+    print (e)
+```
+Figure 2. Example of try-except method with specific error type
 
 ## Raising Custom Exception
 In addition to specific error types custom errors can be defined (raised). For example, if you want to user input to be only positive numbers, you can use the custom exception as shown in Figure 3:
-
 ```while True:
     try:
 intNumber = int(input("People vaccinated: "))
@@ -75,7 +73,8 @@ else:
     return lstData
     except Exception as e:  # this exception catches all the rest
     print("There was a non-specific error!")
-    print(e)```
+    print(e)
+ ```  
 Figure 3. Raising custom expression
 
 # Assignment 07
@@ -88,7 +87,8 @@ I added heading for my script:
 # Title: Pickling and Exception Handling in Python
 # Description: Storing and reading vaccination data for different cities
 # ChangeLog: (Who, When, What)
-# ElenaMcDonald,05.24.2021,Created script```
+# ElenaMcDonald,05.24.2021,Created script
+```
 ## Step 2
 I imported pickle module:
 ```import pickle  # imports code for pickling functions```
@@ -98,7 +98,8 @@ These will hold my future functions
 ## Step 4
 I named my variables at the top:
 ```strFileName = "AppData.dat"
-lstData = []```
+lstData = []
+```
 ## Step 5
 I wrote functions for pickling and unpickling data:
 
@@ -109,7 +110,8 @@ I wrote functions for pickling and unpickling data:
     """
     file = open(file_name, "ab")  # append new data to a file
     pickle.dump(list, file)
-    file.close()```
+    file.close()
+  ```
 Figure 4. Pickling
 
 ```def read_data_file(file_name):
@@ -126,7 +128,8 @@ Figure 4. Pickling
         except EOFError:  # "end of file" built-in exception used to break the loop
             break
     file.close()
-    return list```
+    return list
+  ```
 Figure 5. Unpickling
 
 ## Step 6
@@ -151,7 +154,8 @@ I wrote function for collecting user input. This includes 3 examples of exceptio
             print("Please enter only numeric values for people vaccinated! ")
         except Exception as e:  # this exception catches all the rest
             print("There was a non-specific error!")
-            print(e, e.__doc__, type(e), sep='\n')```
+            print(e, e.__doc__, type(e), sep='\n')
+ ```
 Figure 5. Examples of using exceptions
 
 ## Step 7
@@ -167,32 +171,8 @@ At the end I wrote my main() function:
     strChoice = input("Add another? Y/N: ")
     if strChoice.lower().strip() == "y":
         continue
-    break```
-![image](https://user-images.githubusercontent.com/84052822/119774119-8ca56500-be76-11eb-91af-69e53247dbfb.png)
-
-
-## Testing in PyCharm
-First, I input my first 2 entries:
- 
-
-These were converted to binary format and saved in AppData.dat file:
- 
-When I rerun program, these entries were ‘unpickled’ – loaded back to memory from the binary file:
- 
-
-My third entry was appended to the existing data in the file:
- 
-
-Testing in Mac OS Terminal:
-I added 2 more cities. Program then saved these entries to binary file (pickled) then unpickled and printed it on the screen together with new entries: 
-
- 
-
-I can see my new entries appended in the newly pickled file: 
-
-
- 
-
+    break
+  ```
 ## Summary
 Pickling and unpickling is an easy way to store data using built-in Python functions. Though not always secure, it could be implementing for different use cases, like storing models for machine learning, etc. 
 Exception handling is extremely flexible in Python and could be used for a variety of use cases, even as a logic for the loops. 
